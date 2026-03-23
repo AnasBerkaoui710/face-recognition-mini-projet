@@ -1,79 +1,84 @@
-# Face Recognition System (Python)
+# Système de Reconnaissance Faciale (Python)
 
-## 📌 Project Overview
-This project implements a **basic face recognition system** using Python. It detects faces from a webcam stream and identifies individuals by comparing them with a local database.
+## 📌 Présentation du projet
+Ce projet implémente un **système de reconnaissance faciale basique** en Python. Il détecte les visages à partir d'un flux webcam et identifie les individus en les comparant avec une base de données locale.
 
-The system is designed for applications such as:
-- Security systems
-- Access control
-- Attendance tracking
-- Surveillance
-
----
-
-## ❓ Problem Statement
-How to build a system capable of:
-- Detecting faces in real time  
-- Recognizing individuals from a database  
-- Displaying their information if found  
-- Indicating when a person is unknown  
+Applications possibles :
+- Systèmes de sécurité  
+- Contrôle d’accès  
+- Suivi de présence  
+- Surveillance vidéo  
 
 ---
 
-## 🎯 Objectives
-
-### Main Objective
-Develop a **simple and functional face recognition system**.
-
-### Secondary Objectives
-- Detect faces in images or video streams  
-- Compare detected faces with stored data  
-- Display user information (name, ID, etc.)  
-- Handle unknown individuals  
+## ❓ Problématique
+Comment concevoir un système capable de :
+- Détecter les visages en temps réel  
+- Identifier les personnes à partir d’une base de données  
+- Afficher leurs informations si elles existent  
+- Indiquer quand une personne est inconnue  
 
 ---
 
-## ⚙️ Features
+## 🎯 Objectifs
 
-### Core Features
-- Face detection (real-time)
-- Face recognition using encoding
-- Identification (known / unknown)
-- Live webcam display with annotations
+### Objectif principal
+Mettre en place un **système de reconnaissance faciale simple et fonctionnel**.
 
-### Additional Features
-- Multiple face detection
-- Bounding boxes around faces
-- Display of recognition results on screen
+### Objectifs secondaires
+- Détecter automatiquement les visages dans les images ou vidéos  
+- Comparer les visages détectés avec ceux stockés dans la base de données  
+- Afficher les informations associées à la personne reconnue  
+- Gérer les cas où la personne n’est pas trouvée  
 
 ---
 
-## 🛠️ Technologies Used
+## ⚙️ Fonctionnalités
 
-- **Python**
-- **OpenCV (cv2)** – Face detection and video processing  
-- **NumPy** – Numerical operations  
-- **face_recognition** *(or MediaPipe alternative)* – Face encoding and comparison  
+### Fonctionnalités principales
+- Détection de visage (temps réel)  
+- Reconnaissance faciale via encodage  
+- Identification (personne connue / inconnue)  
+- Affichage en direct avec annotations  
 
----
-
-## 🧠 System Architecture
-
-### Input
-- Webcam video stream or image
-
-### Processing Pipeline
-1. Capture frame  
-2. Detect face(s)  
-3. Extract facial features (encoding)  
-4. Compare with database  
-
-### Output
-- Display recognized person's info  
-- Or show: `"Unknown person"`
+### Fonctionnalités secondaires
+- Détection simultanée de plusieurs visages  
+- Encadrement visuel des visages détectés  
+- Affichage des résultats directement sur l’image  
 
 ---
 
-## 🗂️ Database Structure
+## 🛠️ Technologies utilisées
+- **Python**  
+- **OpenCV (cv2)** – Détection de visage et traitement vidéo  
+- **NumPy** – Calculs numériques  
+- **face_recognition** *(ou MediaPipe en alternative)* – Encodage et comparaison des visages  
 
-The system uses a **local database**:
+---
+
+## 🧠 Architecture du système
+
+### Entrée
+- Flux vidéo webcam ou image  
+
+### Traitement
+1. Capture de l’image  
+2. Détection des visages  
+3. Extraction des caractéristiques faciales (encodage)  
+4. Comparaison avec la base de données  
+
+### Sortie
+- Affichage des informations de la personne reconnue  
+- Ou affichage : `"Personne introuvable"`  
+
+---
+
+## 🗂️ Structure de la base de données
+Le système utilise une **base de données locale** :
+
+\Images\
+    -personne1.jpg
+    -personne2.jpg
+    .
+    .
+    .
