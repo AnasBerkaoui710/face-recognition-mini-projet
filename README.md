@@ -1,84 +1,95 @@
-# Système de Reconnaissance Faciale (Python)
+# Face Recognition Mini Project
 
-## 📌 Présentation du projet
-Ce projet implémente un **système de reconnaissance faciale basique** en Python. Il détecte les visages à partir d'un flux webcam et identifie les individus en les comparant avec une base de données locale.
+## Overview
+A simple yet effective face recognition system built with Python and OpenCV. This mini project demonstrates the full pipeline: capturing face datasets, training a recognizer model, and performing real-time identification via webcam.
 
-Applications possibles :
-- Systèmes de sécurité  
-- Contrôle d’accès  
-- Suivi de présence  
-- Surveillance vidéo  
+## Features
+- Webcam-based face dataset collection for multiple users.
+- LBPH (Local Binary Pattern Histograms) face recognizer training.
+- Real-time face detection and recognition with confidence scoring.
+- Uses pre-trained Haar cascades for robust frontal face detection.
 
----
+## Project Structure
+```
+face-recognition-mini-projet/
+├── haarcascade_frontalface_default.xml  # OpenCV face detection model
+├── dataset/                            # Captured user face images (e.g., user.1.1.jpg)
+├── trainer/                            # Trained model output (trainer.yml)
+├── create_dataset.py                   # Script to capture training images
+├── trainer.py                          # Model training script
+└── recognition.py                      # Real-time recognition script
+```
 
-## ❓ Problématique
-Comment concevoir un système capable de :
-- Détecter les visages en temps réel  
-- Identifier les personnes à partir d’une base de données  
-- Afficher leurs informations si elles existent  
-- Indiquer quand une personne est inconnue  
+## Requirements
+```bash
+pip install opencv-python numpy
+```
+- Python 3.6+
+- Download `haarcascade_frontalface_default.xml` from [OpenCV GitHub](https://github.com/opencv/opencv/tree/master/data/haarcascades) if not included.
 
----
+## Quick Start
 
-## 🎯 Objectifs
+### 1. Collect Dataset
+```bash
+python create_dataset.py
+```
+- Enter user ID (e.g., "Anas") when prompted.
+- Position face in frame; captures 100 images automatically.
+- Repeat for each user; images save to `dataset/`.
 
-### Objectif principal
-Mettre en place un **système de reconnaissance faciale simple et fonctionnel**.
+### 2. Train Model
+```bash
+python trainer.py
+```
+- Loads all images from `dataset/`.
+- Trains and saves `trainer.yml` in `trainer/`.
 
-### Objectifs secondaires
-- Détecter automatiquement les visages dans les images ou vidéos  
-- Comparer les visages détectés avec ceux stockés dans la base de données  
-- Afficher les informations associées à la personne reconnue  
-- Gérer les cas où la personne n’est pas trouvée  
+### 3. Run Recognition
+```bash
+python recognition.py
+```
+- Opens webcam feed.
+- Detects faces, matches against trained model.
+- Displays ID and confidence (e.g., "Anas - 92.5%").
 
----
+## How It Works
+1. **Detection**: Haar cascade identifies face regions in grayscale frames.
+2. **Training**: LBPH extracts texture patterns from resized face crops.
+3. **Recognition**: Compares live detections against trained model; threshold ~100 for matches.
 
-## ⚙️ Fonctionnalités
+**Sample Code Snippet** (from `recognition.py`):
+```python
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer.read('trainer/trainer.yml')
 
-### Fonctionnalités principales
-- Détection de visage (temps réel)  
-- Reconnaissance faciale via encodage  
-- Identification (personne connue / inconnue)  
-- Affichage en direct avec annotations  
+# In video loop
+faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+for (x,y,w,h), conf in zip(faces, predictions):
+    if conf < 100:
+        id_ = labels[id]
+        cv2.putText(frame, f"{id_} [{conf:.0f}]", (x,y-10), FONT, 0.9, GREEN, 2)
+```
 
-### Fonctionnalités secondaires
-- Détection simultanée de plusieurs visages  
-- Encadrement visuel des visages détectés  
-- Affichage des résultats directement sur l’image  
+## Performance Tips
+- Use 80-150 images per person for better accuracy.
+- Ensure consistent lighting during capture and recognition.
+- Frontal faces yield highest confidence scores.
 
----
+## Limitations
+- Struggles with extreme angles, poor lighting, or occlusions.
+- Single model file; retrain fully for new users.
+- CPU-intensive for high-res video.
 
-## 🛠️ Technologies utilisées
-- **Python**  
-- **OpenCV (cv2)** – Détection de visage et traitement vidéo  
-- **NumPy** – Calculs numériques  
-- **face_recognition** *(ou MediaPipe en alternative)* – Encodage et comparaison des visages  
+## Future Enhancements
+- Integrate `face_recognition` library for dlib-based embeddings.
+- Add GUI with Tkinter or Streamlit.
+- Support multi-face tracking and database storage.
 
----
+## Author
+**Prof. Anas Berkaoui**  
+Beni Mellal, Morocco  
+[GitHub Profile](https://github.com/AnasBerkaoui710)
 
-## 🧠 Architecture du système
-
-### Entrée
-- Flux vidéo webcam ou image  
-
-### Traitement
-1. Capture de l’image  
-2. Détection des visages  
-3. Extraction des caractéristiques faciales (encodage)  
-4. Comparaison avec la base de données  
-
-### Sortie
-- Affichage des informations de la personne reconnue  
-- Ou affichage : `"Personne introuvable"`  
-
----
-
-## 🗂️ Structure de la base de données
-Le système utilise une **base de données locale** :
-
-\Images\
-    -personne1.jpg
-    -personne2.jpg
-    .
-    .
-    .
+## License
+MIT License - feel free to use and modify for educational purposes.
